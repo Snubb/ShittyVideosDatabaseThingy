@@ -3,10 +3,13 @@
 ## Databas
 
 - videos
-    - id (int | auto_increment)
-    - link (String)
-    - embedd-url (String)
-    - thumbnail-url (String)
+    - id (int | auto_increment)  
+    - link (String)  
+    ----
+    Behövs inte för det kan genereras på sidan utifrån videourl 
+    - ~~embedd-url (String)~~
+    - ~~thumbnail-url (String)~~  
+    ----
     - author (String)
     - uploader (String)
     - rating (Json)  
