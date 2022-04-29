@@ -1,0 +1,17 @@
+{% extends layout %}
+{% block content %}
+
+<main>
+    <h1> {{ message }} </h1>
+    <ul>
+        {% for item in items %}
+            <h1> {{ item.videourl }} </h1>
+            <h1> {{ item.videoID }} </h1>
+            <img src="https://i.ytimg.com/vi/{{ item.videoID }}/hqdefault.jpg" alt="thumbnail" width="100" heigth="100">
+        {% endfor %}
+    </ul>
+
+
+</main>
+
+{% endblock %}

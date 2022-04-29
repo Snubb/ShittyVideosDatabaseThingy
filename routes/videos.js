@@ -11,7 +11,14 @@ router.get('/', async (req, res, next) => {
             if (json == "true") {
                 res.json(rows)
             } else {
-                res.render('layout.njk');
+                const data = {
+                    message: "Displaying videos",
+                    layout: 'layout.njk',
+                    items: rows
+                }
+
+
+                res.render('videos.njk', data);
             }
         })
         .catch(err => {
@@ -22,6 +29,15 @@ router.get('/', async (req, res, next) => {
                 }
             });
         });
+});
+
+router.get('/post', async (req, res, next) => {
+    const data = {
+        message: "Post a video",
+        layout: 'layout.njk',
+        title: 'Video posting'
+    }
+    res.render('postVideo.njk', data)
 });
 
 module.exports = router;
