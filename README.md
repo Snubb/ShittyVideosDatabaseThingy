@@ -5,6 +5,7 @@
 - videos
     - id (int | auto_increment)  
     - link (String)  
+    - vidoeID (String)
     ----
     Behövs inte för det kan genereras på sidan utifrån videourl 
     - ~~embedd-url (String)~~
