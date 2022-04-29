@@ -3,10 +3,16 @@ const pool = require('../database');
 var router = express.Router();
 
 router.get('/', async (req, res, next) => {
+    const json = req.query.json;
+
     await pool.promise()
         .query('SELECT * FROM videos')
         .then(([rows, fields]) => {
-            res.json(rows)
+            if (json == "true") {
+                res.json(rows)
+            } else {
+                res.render('layout.njk');
+            }
         })
         .catch(err => {
             console.log(err);
