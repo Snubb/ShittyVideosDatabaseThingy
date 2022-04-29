@@ -31,13 +31,18 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/post', async (req, res, next) => {
-    const data = {
-        message: "Post a video",
-        layout: 'layout.njk',
-        title: 'Video posting',
-        username: req.session.loginToken
+    if (req.session.loginToken) {
+        const data = {
+            message: "Post a video",
+            layout: 'layout.njk',
+            title: 'Video posting',
+            username: req.session.loginToken
+        }
+        res.render('postVideo.njk', data)
+    } else {
+        req.session.error = "Must be logged in to post video";
+        res.redirect("/login");
     }
-    res.render('postVideo.njk', data)
 });
 
 router.post('/post',
@@ -46,7 +51,7 @@ router.post('/post',
         const videoID = videoURL.split('v=')[1];
         const username = req.session.loginToken;
 
-
+        
         const sql = 'INSERT INTO videos (videourl, videoID, author, uploader) VALUES (?, ?, ?, ?)';
         await pool.promise()
         .query(sql, [videoURL, videoID, 'Oliver', username])
