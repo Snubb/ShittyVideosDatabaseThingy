@@ -1,13 +1,18 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var sassMiddleware = require('node-sass-middleware');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const sassMiddleware = require('node-sass-middleware');
+const nunjucks = require('nunjucks');
+const session = require('express-session');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+require('dotenv').config();
 
-var app = express();
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const videosRouter = require('./routes/videos');
+
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -21,7 +26,20 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'kirbycarkirbycar',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { sameSite: true }
+}))
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/videos', videosRouter);
+
+nunjucks.configure('views', {
+  autoescape: true,
+  express: app
+});
 
 module.exports = app;
