@@ -28,6 +28,8 @@
     - id (int | auto_increment)
     - name (String)
     - password (String)
+    - createdAt (Date)
+    - updatedAt (Date)
     - lastlogin (Date)
 ---
 Behövs inte för jag gör json object istället 👍
