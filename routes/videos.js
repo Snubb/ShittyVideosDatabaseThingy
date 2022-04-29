@@ -14,10 +14,9 @@ router.get('/', async (req, res, next) => {
                 const data = {
                     message: "Displaying videos",
                     layout: 'layout.njk',
-                    items: rows
+                    items: rows,
+                    username: req.session.loginToken
                 }
-
-
                 res.render('videos.njk', data);
             }
         })
@@ -35,7 +34,8 @@ router.get('/post', async (req, res, next) => {
     const data = {
         message: "Post a video",
         layout: 'layout.njk',
-        title: 'Video posting'
+        title: 'Video posting',
+        username: req.session.loginToken
     }
     res.render('postVideo.njk', data)
 });
@@ -44,11 +44,12 @@ router.post('/post',
     async (req, res, next) => {
         const videoURL = req.body.videourl;
         const videoID = videoURL.split('v=')[1];
+        const username = req.session.loginToken;
 
 
         const sql = 'INSERT INTO videos (videourl, videoID, author, uploader) VALUES (?, ?, ?, ?)';
         await pool.promise()
-        .query(sql, [videoURL, videoID, 'Oliver', 'Oliver'])
+        .query(sql, [videoURL, videoID, 'Oliver', username])
         .then((response) => {
             console.log(response);
             if (response[0].affectedRows == 1) {

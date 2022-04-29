@@ -11,6 +11,8 @@ require('dotenv').config();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const videosRouter = require('./routes/videos');
+const signupRouter = require('./routes/signup');
+const loginRouter = require('./routes/login');
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/videos', videosRouter);
+app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
 
 nunjucks.configure('views', {
   autoescape: true,
