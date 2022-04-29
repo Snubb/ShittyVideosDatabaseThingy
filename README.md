@@ -28,12 +28,16 @@
     - name (String)
     - password (String)
     - lastlogin (Date)
+---
+Behövs inte för jag gör json object istället 👍
+
 - ratings
     - id (int | auto_increment)
     - video_id (int)
-    - user_id (int)
-    - rating (int | 0-5)
+    - user_id (int)  
+    - rating (int | 0-5)  
     - date (Date)
+---
 
 
 
