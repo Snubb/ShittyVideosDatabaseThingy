@@ -14,3 +14,11 @@ Tog reda på att jag inte faktiskt behöver youtube api. Skapade även databas o
 Bara bra :), tog lite tid med json men jag löste det.
 ### Idag? 
 Börja starta med projektet. Installera npm paketen och sånt.
+
+## 2022-05-04
+### Vad gjorde jag förra gången?
+Fått det mesta att fungera, login fungerar och är kopplad till users, man måste logga in för att posta, routen använder användarens username för objectet i videos databases.
+### Hur gick det?
+Bara bra egentligen :)
+### Idag? 
+Fina till strukturen lite gällande funktioner och fixa en profile page där man kan se uppladdade videor och även logga ut.
