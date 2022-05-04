@@ -22,3 +22,6 @@ Fått det mesta att fungera, login fungerar och är kopplad till users, man mås
 Bara bra egentligen :)
 ### Idag? 
 Fina till strukturen lite gällande funktioner och fixa en profile page där man kan se uppladdade videor och även logga ut.
+### Vad gjordes? 
+User page färdigställd (kan dock se finare ut). Fixade funktionen för att generera id och har gjort så alla videor får samma format
+på sin videoURL. Började kolla in smått på youtube api får jag insåg att den behövs om jag vill ha author för vidoen och en auto-genererad titel.
