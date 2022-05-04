@@ -28,7 +28,6 @@ router.get('/', async (req, res, next) => {
 
 });
 router.post('/', async (req, res, next) => {
-    //console.log(req.body.username);
     const username = req.body.username;
     
     if (username.length > 0 && req.body.password.length > 0) {
@@ -49,12 +48,8 @@ router.post('/', async (req, res, next) => {
                 });
             })
             .catch(err => {
-                console.log(err);
-                res.status(500).json({
-                    users: {
-                        error: "Error getting users"
-                    }
-                })
+                req.session.error = "Wrong password/username";
+                res.redirect("/login");
             });
     } else {
         req.session.error = "must input values";

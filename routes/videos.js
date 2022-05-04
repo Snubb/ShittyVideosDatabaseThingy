@@ -56,7 +56,7 @@ router.post('/post',
         
         const sql = 'INSERT INTO videos (videourl, videoID, author, uploader) VALUES (?, ?, ?, ?)';
         await pool.promise()
-        .query(sql, [videoURL, videoID, 'Oliver', username])
+        .query(sql, [videoURL, videoID, 'PLACEHOLDER', username])
         .then((response) => {
             console.log(response);
             if (response[0].affectedRows == 1) {

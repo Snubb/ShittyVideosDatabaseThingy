@@ -1,0 +1,12 @@
+{% extends "layout.njk" %}
+{% block  content %}
+    <h1> WELCMOE </h1>
+    <p>Name: {{ name }}</p>
+    <form action="/login/logout" method="post">
+        <button type="submit" class="btn btn-warning">Log out</button>
+    </form>
+
+    {% for video in data %}
+        <h1>{{ video.videourl }}</h1>
+    {% endfor %}
+{% endblock %}
