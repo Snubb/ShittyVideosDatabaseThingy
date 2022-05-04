@@ -1,6 +1,7 @@
 var express = require('express');
 const pool = require('../database');
 var router = express.Router();
+var youtubeGen = require('../utils/youtubeGenerator');
 
 router.get('/', async (req, res, next) => {
     const json = req.query.json;
@@ -47,8 +48,9 @@ router.get('/post', async (req, res, next) => {
 
 router.post('/post',
     async (req, res, next) => {
-        const videoURL = req.body.videourl;
-        const videoID = videoURL.split('v=')[1];
+        const videoID = youtubeGen(req.body.videourl);
+        const videoURL = "youtu.be/" + videoID; // Detta för att få alla länkar att ha samma format
+        console.log("POST routes videoID: " + videoID);
         const username = req.session.loginToken;
 
         
