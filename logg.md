@@ -25,3 +25,11 @@ Fina till strukturen lite gällande funktioner och fixa en profile page där man
 ### Vad gjordes? 
 User page färdigställd (kan dock se finare ut). Fixade funktionen för att generera id och har gjort så alla videor får samma format
 på sin videoURL. Började kolla in smått på youtube api får jag insåg att den behövs om jag vill ha author för vidoen och en auto-genererad titel.
+
+## 2022-05-06
+### Vad gjorde jag förra gången?
+Fixade en basic user page, fixade id-gettern och lekte runt med youtubes api lite.
+### Hur gick det?
+Halft bra halft, mindre bra, specifikt delen med youtubes api.
+### Idag? 
+Fortsätta kolla runt lite med youtubes api och eventuellt fixa en bättre display för att nuvarande videos.

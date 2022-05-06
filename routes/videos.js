@@ -2,6 +2,8 @@ var express = require('express');
 const pool = require('../database');
 var router = express.Router();
 var youtubeGen = require('../utils/youtubeGenerator');
+const betterFetch = require('node-fetch');
+
 
 router.get('/', async (req, res, next) => {
     const json = req.query.json;
@@ -52,32 +54,45 @@ router.post('/post',
         const videoURL = "youtu.be/" + videoID; // Detta för att få alla länkar att ha samma format
         console.log("POST routes videoID: " + videoID);
         const username = req.session.loginToken;
+        let title;
+        let thumbnailurl;
+        let channel;
+        let key = process.env.YOUTUBE_API_KEY;
+        let url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoID}&key=${key}`
 
-        
-        const sql = 'INSERT INTO videos (videourl, videoID, author, uploader) VALUES (?, ?, ?, ?)';
-        await pool.promise()
-        .query(sql, [videoURL, videoID, 'PLACEHOLDER', username])
-        .then((response) => {
-            console.log(response);
-            if (response[0].affectedRows == 1) {
-                res.redirect('/videos');
-            } else {
-                res.status(400).json({
-                    videos: {
-                        error: "Invalid video"
+        let response;
+        betterFetch(url)
+            .then(res => res.json())
+            .then(json => response = json.items[0].snippet)
+            .then(async () => {
+                title = response.title;
+                thumbnailurl = response.thumbnails.high.url;
+                channel = response.channelTitle;
+
+                const sql = 'INSERT INTO videos (videourl, videoID, author, uploader, thumbnailurl, videoTitle) VALUES (?, ?, ?, ?, ?, ?)';
+                await pool.promise()
+                .query(sql, [videoURL, videoID, channel, username, thumbnailurl, title])
+                .then((response) => {
+                    console.log(response);
+                    if (response[0].affectedRows == 1) {
+                        res.redirect('/videos');
+                    } else {
+                        res.status(400).json({
+                            videos: {
+                                error: "Invalid video"
+                            }
+                        })
                     }
                 })
-            }
-            
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                videos: {
-                    error: "Cannot retrieve videos"
-                }
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        videos: {
+                            error: "Cannot retrieve videos"
+                        }
+                    });
+                });
             });
-        });
 });
 
 module.exports = router;

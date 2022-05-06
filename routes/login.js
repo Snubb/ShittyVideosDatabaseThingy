@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
                     if (result) {
                         req.session.loginToken = username;
                         req.session.uid = rows[0].id;
-                        res.redirect("/videos", );
+                        res.redirect("/user", );
                     } 
                     else {
                         req.session.error = "Wrong password/username";

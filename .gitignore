@@ -35,6 +35,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+.cache/
+.vscode/
 
 # Typescript v1 declaration files
 typings/
@@ -61,3 +63,5 @@ typings/
 .next
 
 databasecreationthatiwillforgetsoikeepitherejustincase.md
+test.njk
+yotuubeapithingy.js
