@@ -59,7 +59,6 @@ router.post('/post',
         let channel;
         let key = process.env.YOUTUBE_API_KEY;
         let url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoID}&key=${key}`
-
         let response;
         betterFetch(url)
             .then(res => res.json())
@@ -95,4 +94,47 @@ router.post('/post',
             });
 });
 
+router.get('/:id', async (req, res, next) => {
+    const id = req.params.id;
+    const json = req.query.json;
+    if(isNaN(id)) {
+        res.status(400).json({
+            task: {
+                error: "Input a number you fool"
+            }
+        });
+    } else {
+        await pool.promise()
+        .query('SELECT * FROM videos WHERE id = ?', [id])
+        .then(([rows, fields]) => {
+            if(rows.length != 0) {
+                if (json == "true") {
+                    res.json(rows)
+                } else {
+                    const data = {
+                        message: "Displaying videos",
+                        layout: 'layout.njk',
+                        items: rows,
+                        username: req.session.loginToken
+                    }
+                    res.render('videoID.njk', data);
+                }
+            } else {
+                res.json({
+                    tasks: {
+                        error: "ID does not exist"
+                    }
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                tasks: {
+                    error: "Cannot retrieve tasks"
+                }
+            });
+        });
+    }
+});
 module.exports = router;

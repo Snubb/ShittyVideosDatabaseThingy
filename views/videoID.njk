@@ -1,0 +1,17 @@
+{% extends layout %}
+{% block content %}
+
+<main>
+    <h1> {{ message }} </h1>
+    {% for item in items %}
+        <div class="w-50">
+            <iframe width="1263" height="480" src="https://www.youtube.com/embed/{{ item.videoID }}"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+
+        </div>
+    {% endfor %}
+</main>
+
+{% endblock %}

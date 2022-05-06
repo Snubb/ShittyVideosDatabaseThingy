@@ -33,3 +33,5 @@ Fixade en basic user page, fixade id-gettern och lekte runt med youtubes api lit
 Halft bra halft, mindre bra, specifikt delen med youtubes api.
 ### Idag? 
 Fortsätta kolla runt lite med youtubes api och eventuellt fixa en bättre display för att nuvarande videos.
+### Vad gjordes?
+Har fixat fetch. 11ty fetch är omöjligt att förstå så istället blev det node-fetch. Det går inte att "requirea" node-fetch 3.0 så fick installera en äldre version 2.6.7. Nu så fetchar jag hur som hellst från youtube api och får all data där ifrån. Videos sidan har också lite bättre layout och det finns en basic route /videos/:id som displayar en videoplayer för den videon.
