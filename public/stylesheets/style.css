@@ -10,4 +10,10 @@ a {
 .card {
   margin-bottom: 1rem; }
 
+.card-link {
+  text-decoration: none;
+  color: black; }
+  .card-link:hover {
+    color: black; }
+
 /*# sourceMappingURL=style.css.map */
