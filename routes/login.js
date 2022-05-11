@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
     if (req.session.loginToken) {
-        return res.redirect("/profile");
+        return res.redirect("/user");
     }
     await pool.promise()
         .query('SELECT * FROM users')
@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
                     if (result) {
                         req.session.loginToken = username;
                         req.session.uid = rows[0].id;
-                        res.redirect("/user", );
+                        res.redirect("/user");
                     } 
                     else {
                         req.session.error = "Wrong password/username";
