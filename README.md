@@ -5,12 +5,13 @@
 - videos
     - id (int | auto_increment)  
     - link (String)  
+    - Title (String)  
     - vidoeID (String)
     ----
-    Behövs inte för det kan genereras på sidan utifrån videourl 
+    Behövs inte för det kan genereras på sidan utifrån videID  
     - ~~embedd-url (String)~~
-    - ~~thumbnail-url (String)~~  
     ----
+    - thumbnail-url (String) 
     - author (String)
     - uploader (String)
     - rating (Json)  
