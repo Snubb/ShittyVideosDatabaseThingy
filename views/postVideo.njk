@@ -2,12 +2,13 @@
 {% block content %}
 
 <main>
-    <h1> {{ message }} </h1>
-    <form action="/videos/post" method="post">
-        <input class="form-control" type="text" placeholder="Video URL" aria-label="default input example" name="videourl">
-        <button class="btn" type="submit">Post</button>
-    </form>
-
+    <div class="container post-form">
+        <h1> {{ message }} </h1>
+        <form action="/videos/post" method="post">
+            <input class="form-control" type="text" placeholder="Video URL" aria-label="default input example" name="videourl">
+            <button class="btn" type="submit">Post</button>
+        </form>
+    </div>
 
 </main>
 
