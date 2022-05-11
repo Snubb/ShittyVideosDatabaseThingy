@@ -35,3 +35,13 @@ Halft bra halft, mindre bra, specifikt delen med youtubes api.
 Fortsätta kolla runt lite med youtubes api och eventuellt fixa en bättre display för att nuvarande videos.
 ### Vad gjordes?
 Har fixat fetch. 11ty fetch är omöjligt att förstå så istället blev det node-fetch. Det går inte att "requirea" node-fetch 3.0 så fick installera en äldre version 2.6.7. Nu så fetchar jag hur som hellst från youtube api och får all data där ifrån. Videos sidan har också lite bättre layout och det finns en basic route /videos/:id som displayar en videoplayer för den videon.
+
+## 2022-05-11
+### Vad gjorde jag förra gången?
+Fixade hela fetch systemet.
+### Hur gick det?
+Tog sin tid men det fungerar nu precis som det ska.
+### Idag? 
+Mest jobba med layout och eventuellt fixa lite till routes, specifikt gällande /user.
+### Vad gjordes?
+Massa layout stuff. Att få iframe elementet för videon att vara repsonsiv(specifikt att höjden scaleade med bredden) var rejält jobbigt men jag löste det tillslut och nu fungerar den fin fint.
