@@ -3,15 +3,13 @@
 
 <main>
     <h1> {{ message }} </h1>
-    {% for item in items %}
-        <div class="w-50">
-            <iframe width="1263" height="480" src="https://www.youtube.com/embed/{{ item.videoID }}"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-
+    <div class="d-flex justify-content-center p-left-right-20">
+        <div class="video-container">
+            {% for item in items %}
+                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{{ item.videoID }}"></iframe>
+            {% endfor %}
         </div>
-    {% endfor %}
+    </div>
 </main>
 
 {% endblock %}
