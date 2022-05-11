@@ -70,44 +70,38 @@ router.post('/post',
 
                 const sql = 'INSERT INTO videos (videourl, videoID, author, uploader, thumbnailurl, videoTitle) VALUES (?, ?, ?, ?, ?, ?)';
                 await pool.promise()
-                .query(sql, [videoURL, videoID, channel, username, thumbnailurl, title])
-                .then((response) => {
-                    console.log(response);
-                    if (response[0].affectedRows == 1) {
-                        res.redirect('/videos');
-                    } else {
-                        res.status(400).json({
-                            videos: {
-                                error: "Invalid video"
-                            }
-                        })
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({
-                        videos: {
-                            error: "Cannot retrieve videos"
+                    .query(sql, [videoURL, videoID, channel, username, thumbnailurl, title])
+                    .then((response) => {
+                        console.log(response);
+                        if (response[0].affectedRows == 1) {
+                            res.redirect('/videos');
+                        } else {
+                            res.status(400).json({
+                                videos: {
+                                    error: "Invalid video"
+                                }
+                            })
                         }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json({
+                            videos: {
+                                error: "Cannot retrieve videos"
+                            }
+                        });
                     });
-                });
             });
-});
+    });
 
 router.get('/:id', async (req, res, next) => {
-    const id = req.params.id;
+    const videoID = req.params.id;
     const json = req.query.json;
-    if(isNaN(id)) {
-        res.status(400).json({
-            task: {
-                error: "Input a number you fool"
-            }
-        });
-    } else {
-        await pool.promise()
-        .query('SELECT * FROM videos WHERE id = ?', [id])
+    console.log("Vidoe ID: " + videoID);
+    await pool.promise()
+        .query('SELECT * FROM videos WHERE videoID = ?', [videoID])
         .then(([rows, fields]) => {
-            if(rows.length != 0) {
+            if (rows.length != 0) {
                 if (json == "true") {
                     res.json(rows)
                 } else {
@@ -135,6 +129,5 @@ router.get('/:id', async (req, res, next) => {
                 }
             });
         });
-    }
 });
 module.exports = router;

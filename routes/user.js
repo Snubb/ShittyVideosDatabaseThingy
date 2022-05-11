@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
   await pool.promise()
   .query('SELECT * FROM videos JOIN users ON users.name = videos.uploader WHERE videos.uploader = ?', [req.session.loginToken])
   .then(([rows, fields]) => {
-      res.render("user.njk", {data: rows, username: req.session.loginToken})
+    res.render("user.njk", {data: rows, username: req.session.loginToken})
   })
 });
 module.exports = router;
