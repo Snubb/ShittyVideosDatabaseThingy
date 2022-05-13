@@ -68,9 +68,9 @@ router.post('/post',
                 thumbnailurl = response.thumbnails.high.url;
                 channel = response.channelTitle;
 
-                const sql = 'INSERT INTO videos (videourl, videoID, author, uploader, thumbnailurl, videoTitle) VALUES (?, ?, ?, ?, ?, ?)';
+                const sql = 'INSERT INTO videos (videourl, videoID, author, uploader, ratings, thumbnailurl, videoTitle) VALUES (?, ?, ?, ?, ?, ?, ?)';
                 await pool.promise()
-                    .query(sql, [videoURL, videoID, channel, username, thumbnailurl, title])
+                    .query(sql, [videoURL, videoID, channel, username, '{}', thumbnailurl, title])
                     .then((response) => {
                         console.log(response);
                         if (response[0].affectedRows == 1) {
