@@ -45,3 +45,12 @@ Tog sin tid men det fungerar nu precis som det ska.
 Mest jobba med layout och eventuellt fixa lite till routes, specifikt gällande /user.
 ### Vad gjordes?
 Massa layout stuff. Att få iframe elementet för videon att vara repsonsiv(specifikt att höjden scaleade med bredden) var rejält jobbigt men jag löste det tillslut och nu fungerar den fin fint.
+
+## 2022-05-13
+### Vad gjorde jag förra gången?
+Layout mest med youtube embed delen i /videos/:id
+### Hur gick det?
+Tog sin tid men det fungerar nu precis som det ska. 👍
+### Idag? 
+Försöka få rating systemet att göra något.
+### Vad gjordes?
