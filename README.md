@@ -8,23 +8,12 @@
     - Title (String)  
     - vidoeID (String)
     ----
-    Behövs inte för det kan genereras på sidan utifrån videID  
+    Behövs inte för det kan genereras på sidan utifrån videoID  
     - ~~embedd-url (String)~~
     ----
     - thumbnail-url (String) 
     - author (String)
     - uploader (String)
-    - rating (Json)  
-        {  
-            {  
-                user_id: int,  
-                rating: int  
-            },  
-            {  
-                user_id: int,    
-                rating: int   
-            }  
-        }
 - users
     - id (int | auto_increment)
     - name (String)
@@ -32,16 +21,13 @@
     - createdAt (Date)
     - updatedAt (Date)
     - lastlogin (Date)
----
-Behövs inte för jag gör json object istället 👍
 
 - ratings
     - id (int | auto_increment)
     - video_id (int)
     - user_id (int)  
     - rating (int | 0-5)  
-    - date (Date)
----
+    - date (Date) DEFAULT NOW()
 
 
 

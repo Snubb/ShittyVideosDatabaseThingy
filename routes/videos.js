@@ -4,7 +4,6 @@ var router = express.Router();
 var youtubeGen = require('../utils/youtubeGenerator');
 const betterFetch = require('node-fetch');
 
-
 router.get('/', async (req, res, next) => {
     const json = req.query.json;
 
