@@ -10,11 +10,27 @@
             {% endfor %}
         </div>
     </div>
+    <h1>Average rating: {{ average_rating }}</h1>
 
-    <form action="/videos/{{ items[0].id }}/rate" method="post">
-        <input class="form-control" type="text" placeholder="Rating goes here" aria-label="default input example" name="rating">
-        <button class="btn" type="submit">Rate</button>
-    </form>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ratingModal">
+        Rate video
+    </button>
+    <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ratingModalLabel">Rate video</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/videos/{{ items[0].id }}/rate" method="post">
+                    <input class="form-control" type="text" placeholder="Rating goes here" aria-label="default input example" name="rating">
+                    <button class="btn" type="submit">Rate</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
 </main>
 
 {% endblock %}

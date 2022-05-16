@@ -97,6 +97,18 @@ router.get('/:id', async (req, res, next) => {
     const videoID = req.params.id;
     const json = req.query.json;
     console.log("Vidoe ID: " + videoID);
+
+    const average_rating = await pool.promise()
+            .query('SELECT AVG(ratings.rating) AS rating_average FROM ratings INNER JOIN videos ON ratings.video_id = videos.id AND videos.id = ?;', [21])
+            .then(([rows]) => {
+                if (rows.length != 0) {
+                    console.log(rows[0]);
+                    return rows[0].rating_average;
+                } else {
+                    console.log("NO WORK");
+                }
+            });
+
     await pool.promise()
         .query('SELECT * FROM videos WHERE videoID = ?', [videoID])
         .then(([rows, fields]) => {
@@ -108,7 +120,8 @@ router.get('/:id', async (req, res, next) => {
                         message: "Displaying videos",
                         layout: 'layout.njk',
                         items: rows,
-                        username: req.session.loginToken
+                        username: req.session.loginToken,
+                        average_rating: average_rating
                     }
                     res.render('videoID.njk', data);
                 }
@@ -145,7 +158,7 @@ router.post('/:id/rate',
                 } else {
                     console.log("NO WORK");
                 }
-            })
+            });
 
         
         const sql = 'INSERT INTO ratings (video_id, user_id, rating) VALUES (?, ?, ?)';
