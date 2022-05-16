@@ -54,3 +54,4 @@ Tog sin tid men det fungerar nu precis som det ska. 👍
 ### Idag? 
 Försöka få rating systemet att göra något.
 ### Vad gjordes?
+Rating systemet fungerar. Måster styla bättre.

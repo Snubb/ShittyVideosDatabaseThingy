@@ -10,6 +10,11 @@
             {% endfor %}
         </div>
     </div>
+
+    <form action="/videos/{{ items[0].id }}/rate" method="post">
+        <input class="form-control" type="text" placeholder="Rating goes here" aria-label="default input example" name="rating">
+        <button class="btn" type="submit">Rate</button>
+    </form>
 </main>
 
 {% endblock %}

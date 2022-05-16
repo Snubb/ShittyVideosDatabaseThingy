@@ -129,4 +129,49 @@ router.get('/:id', async (req, res, next) => {
             });
         });
 });
+
+router.post('/:id/rate',
+    async (req, res, next) => {
+        const video_id = req.params.id;
+        const username = req.session.loginToken;
+        const rating = req.body.rating;
+
+        const user_id = await pool.promise()
+            .query('SELECT id FROM users WHERE name = ?', [username])
+            .then(([rows]) => {
+                if (rows.length != 0) {
+                    console.log(rows[0]);
+                    return rows[0].id;
+                } else {
+                    console.log("NO WORK");
+                }
+            })
+
+        
+        const sql = 'INSERT INTO ratings (video_id, user_id, rating) VALUES (?, ?, ?)';
+        await pool.promise()
+            .query(sql, [video_id, user_id, rating])
+            .then((response) => {
+                console.log(response);
+                if (response[0].affectedRows == 1) {
+                    res.redirect('/videos');
+                } else {
+                    res.status(400).json({
+                        videos: {
+                            error: "Invalid video"
+                        }
+                    })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    videos: {
+                        error: "Cannot retrieve videos"
+                    }
+                });
+            });
+    });
+
+
 module.exports = router;
