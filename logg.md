@@ -55,3 +55,12 @@ Tog sin tid men det fungerar nu precis som det ska. 👍
 Försöka få rating systemet att göra något.
 ### Vad gjordes?
 Rating systemet fungerar. Måster styla bättre.
+
+## 2022-05-16
+### Vad gjorde jag förra gången?
+En bra början med rating. Skrev om hela rating systemet som en separat table istället för json objekt.
+### Hur gick det?
+Good enough.
+### Idag? 
+Förbättra ui:n för ratings och skaffa någon average rating sak.
+### Vad gjordes?
