@@ -2,10 +2,6 @@
 {% block  content %}
     <div class="container">
         <h1> Displaying user page for {{ username }} </h1>
-        <form action="/login/logout" method="post">
-            <button type="submit" class="btn btn-warning">Log out</button>
-        </form>
-        
         <h2>Uploaded videos</h2>
         <div class="row">
             {% for item in data %}
