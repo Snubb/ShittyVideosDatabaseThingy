@@ -65,3 +65,12 @@ Good enough.
 Förbättra ui:n för ratings och skaffa någon average rating sak.
 ### Vad gjordes?
 Fixade relativt bra rating funktion och /user/:user route
+
+## 2022-05-18
+### Vad gjorde jag förra gången?
+Rating och lite user routes.
+### Hur gick det?
+Fin fint.
+### Idag? 
+Fortsätta med lite styling mest.
+### Vad gjordes?
