@@ -33,22 +33,22 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/post', async (req, res, next) => {
-    if (req.session.loginToken) {
-        const data = {
-            message: "Post a video",
-            layout: 'layout.njk',
-            title: 'Video posting',
-            username: req.session.loginToken
-        }
-        res.render('postVideo.njk', data)
-    } else {
-        req.session.error = "Must be logged in to post video";
-        res.redirect("/login");
+    const data = {
+        message: "Post a video",
+        layout: 'layout.njk',
+        title: 'Video posting',
+        username: req.session.loginToken
     }
+    res.render('postVideo.njk', data)
 });
 
 router.post('/post',
     async (req, res, next) => {
+        if (!req.session.loginToken) {
+            return res.status(400).json({    
+                error: "Must be logged in"
+            })
+        }
         const videoID = youtubeGen(req.body.videourl);
         const videoURL = "youtu.be/" + videoID; // Detta för att få alla länkar att ha samma format
         console.log("POST routes videoID: " + videoID);
@@ -145,6 +145,11 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/:id/rate',
     async (req, res, next) => {
+        if (!req.session.loginToken) {
+            return res.status(400).json({    
+                error: "Must be logged in"
+            })
+        }
         const video_id = req.params.id;
         const username = req.session.loginToken;
         const rating = req.body.rating;

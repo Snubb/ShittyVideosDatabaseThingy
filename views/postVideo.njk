@@ -6,7 +6,12 @@
         <h1> {{ message }} </h1>
         <form action="/videos/post" method="post">
             <input class="form-control" type="text" placeholder="Video URL" aria-label="default input example" name="videourl">
-            <button class="btn" type="submit">Post</button>
+            {% if username %}
+                <button class="btn btn-success" type="submit">Post</button>
+            {% else %}
+                <button title="Must be logged in to post video" class="btn btn-success disabled" type="submit">Post</button>
+                <i class="d-block">You must be logged in to post a video</i>
+            {% endif %}
         </form>
     </div>
 
