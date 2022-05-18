@@ -2,8 +2,8 @@
 {% block  content %}
     <div class="container">
         <h1> Displaying user page for {{ username }} </h1>
-        <h2>Uploaded videos</h2>
         <div class="row">
+            <h2>Uploaded videos</h2>
             {% for item in data %}
                 <div class="col-sm-4 d-flex justify-content-center">
                     <a class="card-link" href="/videos/{{ item.videoID }}">

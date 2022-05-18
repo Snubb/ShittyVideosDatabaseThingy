@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Shitty videos</a>
+    <a class="navbar-brand" href="/">Shitty videos</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -32,10 +32,12 @@
                     <button type="submit" class="dropdown-item">Log out</button>
                   </form>
                 </li>
+                <li><a class="dropdown-item" href="/signup">Sign up</a></li>
               </ul>
             </li>
           {% else %}
           <a class="nav-link active" aria-current="page" href="/login">Login</a>
+          <a class="nav-link active" aria-current="page" href="/signup">Sign up</a>
           {% endif %}
         </li>
     </div>
