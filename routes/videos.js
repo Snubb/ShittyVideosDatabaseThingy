@@ -97,9 +97,18 @@ router.get('/:id', async (req, res, next) => {
     const videoID = req.params.id;
     const json = req.query.json;
     console.log("Vidoe ID: " + videoID);
-
+    const video_id = await pool.promise()
+    .query('SELECT id FROM videos WHERE videoID = \'uFvbkT6tZEY\';', [videoID])
+    .then(([rows]) => {
+        if (rows.length != 0) {
+            console.log(rows[0]);
+            return rows[0].id;
+        } else {
+            console.log("NO WORK");
+        }
+    });
     const average_rating = await pool.promise()
-            .query('SELECT AVG(ratings.rating) AS rating_average FROM ratings INNER JOIN videos ON ratings.video_id = videos.id AND videos.id = ?;', [21])
+            .query('SELECT AVG(ratings.rating) AS rating_average FROM ratings INNER JOIN videos ON ratings.video_id = videos.id AND videos.id = ?;', [video_id])
             .then(([rows]) => {
                 if (rows.length != 0) {
                     console.log(rows[0]);

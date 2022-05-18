@@ -23,16 +23,16 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/videos/{{ items[0].id }}/rate" method="post">
-                    <input class="form-control" type="text" placeholder="Rating goes here" aria-label="default input example" name="rating">
-                    {% if username %}
-                      <button class="btn btn-success" type="submit">Rate</button>
-                    {% else %}
-                      <button title="Must be logged in to post video" class="btn btn-success disabled" type="submit">Post</button>
-                      <i class="d-block">You must be logged in to rate a video</i>
-                    {% endif %}
-
-                </form>
+              <form action="/videos/{{ items[0].id }}/rate" method="post">
+                {% if username %}
+                  <input min="0" max="10" class="form-control" type="number" placeholder="Rate 0-10" aria-label="default input example" name="rating">
+                  <button class="btn btn-success" type="submit">Rate</button>
+                {% else %}
+                  <input disabled min="0" max="10" class="form-control" type="number" placeholder="Rate 0-10" aria-label="default input example" name="rating">
+                  <button title="Must be logged in to post video" class="btn btn-success disabled" type="submit">Post</button>
+                  <i class="d-block">You must be logged in to rate a video</i>
+                {% endif %}
+              </form>
             </div>
           </div>
         </div>
