@@ -74,3 +74,4 @@ Fin fint.
 ### Idag? 
 Fortsätta med lite styling mest.
 ### Vad gjordes?
+Finade till lite forms, fixade lite begränsningar på forms, fixade till rating systemet.
