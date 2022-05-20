@@ -84,3 +84,4 @@ Fin fin fint.
 ### Idag? 
 Testa lite heroku hosting kanske, annars mer styling.
 ### Vad gjordes?
+Heroku gick inte för den kan inte koppla till github. Ändrade till scss istället för sass, redesignat signup och login forms. Jobbat lite responsivt med videos tabben.
