@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
     await pool.promise()
         .query('SELECT * FROM users')
         .then(([rows, fields]) => {
-            res.render('login.njk', { title: 'Express', error: req.session.error, flash: req.session.flash, token: req.session.loginToken});
+            res.render('newLogin.njk', { title: 'Express', error: req.session.error, flash: req.session.flash, token: req.session.loginToken});
             req.session.error = null;
             req.session.flash = null;
         })

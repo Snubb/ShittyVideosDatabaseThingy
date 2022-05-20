@@ -1,0 +1,24 @@
+{% extends "layout.njk" %}
+{% block content %}
+
+<main class="form-signin">
+    <form action="/signup" method="post">
+        <h1 class="h3 mb-3 fw-normal">Register new user</h1>
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+         {% endif %}
+        <div class="h-3 input-group">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="h-3 input-group">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        </div>
+        <div class="h-3 input-group">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Repeat password" name="rePassword">
+        </div>
+
+        <button class="w-100 mt-3 btn btn-lg btn-primary" type="submit">Sign up</button>
+    </form>
+</main>
+{% endblock %}

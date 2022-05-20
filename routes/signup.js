@@ -8,7 +8,7 @@ const { hash } = require('bcrypt');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render("signup.njk", {error: req.session.error, token: req.session.loginToken});
+  res.render("newSignup.njk", {error: req.session.error, token: req.session.loginToken});
   req.session.error = null;
 });
 
