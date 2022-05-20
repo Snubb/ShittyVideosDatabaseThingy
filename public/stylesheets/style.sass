@@ -1,3 +1,7 @@
+$lg: 992px
+$md: 768px
+$sm: 576px
+  
 body
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
 
@@ -43,3 +47,16 @@ a
 .p-left-right-20
   padding-left: 20%
   padding-right: 20%
+
+.video-title
+  font-size: 15px
+
+.video-card
+  flex: 0 0 auto
+  width: 25%
+  @media screen and (max-width: $lg)
+    width: 33%
+  @media screen and (max-width: $md)
+    width: 50%
+  @media screen and (max-width: $sm)
+    width: 100%

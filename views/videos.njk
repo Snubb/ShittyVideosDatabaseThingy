@@ -2,16 +2,15 @@
 {% block content %}
 
 <main>
-    <h1> {{ message }} </h1>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             {% for item in items %}
-                <div class="col-sm-4 d-flex justify-content-center">
+                <div class="video-card d-flex justify-content-center">
                     <a class="card-link" href="/videos/{{ item.videoID }}">
-                        <div class="card" style="width: 18rem;">
-                            <img src="{{ item.thumbnailurl }}" class="card-img-top" alt="thumbnail">
+                        <div class="card" style="width: 14rem;">
+                            <img src="{{ item.thumbnailurl }}" class="card-img-top" alt="{{ item.videoTitle }} thumbnail">
                             <div class="card-body">
-                                <h5 class="card-title">{{ item.videoTitle }}</h5>
+                                <h5 class="card-title video-title">{{ item.videoTitle }}</h5>
                             </div>
                         </div>
                     </a>

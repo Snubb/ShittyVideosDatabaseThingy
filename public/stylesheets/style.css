@@ -44,4 +44,20 @@ a {
   padding-left: 20%;
   padding-right: 20%; }
 
+.video-title {
+  font-size: 15px; }
+
+.video-card {
+  flex: 0 0 auto;
+  width: 25%; }
+  @media screen and (max-width: 992px) {
+    .video-card {
+      width: 33%; } }
+  @media screen and (max-width: 768px) {
+    .video-card {
+      width: 50%; } }
+  @media screen and (max-width: 576px) {
+    .video-card {
+      width: 100%; } }
+
 /*# sourceMappingURL=style.css.map */
