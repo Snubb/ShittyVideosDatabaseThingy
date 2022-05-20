@@ -67,9 +67,9 @@ router.post('/post',
                 thumbnailurl = response.thumbnails.high.url;
                 channel = response.channelTitle;
 
-                const sql = 'INSERT INTO videos (videourl, videoID, author, uploader, ratings, thumbnailurl, videoTitle) VALUES (?, ?, ?, ?, ?, ?, ?)';
+                const sql = 'INSERT INTO videos (videourl, videoID, author, uploader, thumbnailurl, videoTitle) VALUES (?, ?, ?, ?, ?, ?)';
                 await pool.promise()
-                    .query(sql, [videoURL, videoID, channel, username, '{}', thumbnailurl, title])
+                    .query(sql, [videoURL, videoID, channel, username, thumbnailurl, title])
                     .then((response) => {
                         console.log(response);
                         if (response[0].affectedRows == 1) {
@@ -98,7 +98,7 @@ router.get('/:id', async (req, res, next) => {
     const json = req.query.json;
     console.log("Vidoe ID: " + videoID);
     const video_id = await pool.promise()
-    .query('SELECT id FROM videos WHERE videoID = \'uFvbkT6tZEY\';', [videoID])
+    .query('SELECT id FROM videos WHERE videoID = ?;', [videoID])
     .then(([rows]) => {
         if (rows.length != 0) {
             console.log(rows[0]);
