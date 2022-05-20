@@ -75,3 +75,12 @@ Fin fint.
 Fortsätta med lite styling mest.
 ### Vad gjordes?
 Finade till lite forms, fixade lite begränsningar på forms, fixade till rating systemet.
+
+## 2022-05-20
+### Vad gjorde jag förra gången?
+Finade till forms och begränsningar.
+### Hur gick det?
+Fin fin fint.
+### Idag? 
+Testa lite heroku hosting kanske, annars mer styling.
+### Vad gjordes?
