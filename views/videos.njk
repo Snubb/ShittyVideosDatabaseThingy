@@ -7,7 +7,7 @@
             {% for item in items %}
                 <div class="video-card d-flex justify-content-center">
                     <a class="card-link" href="/videos/{{ item.videoID }}">
-                        <div class="card" style="width: 14rem;">
+                        <div class="card">
                             <img src="{{ item.thumbnailurl }}" class="card-img-top" alt="{{ item.videoTitle }} thumbnail">
                             <div class="card-body">
                                 <h5 class="card-title video-title">{{ item.videoTitle }}</h5>
