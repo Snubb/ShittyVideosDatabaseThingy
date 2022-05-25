@@ -52,6 +52,29 @@ Mycket bootstrap för css jobbigt 👍
 Själva designen blir en grid layout liknande youtubes egna sida.
 
 
+# Testdokumentation
+Jobbat på firefox på laptop så det fungerat bara bra.
+
+Användar test på Filip på mobil:
+### Kan du skapa användare och logga in?
+Ingen feedback på invalid password.
+
+### Kan du posta en video?
+Post video formen suger på mobil, responsiv design saknas.
+
+### Kan du sedan titta på den videon?
+Kan hitta rätt enkelt men videon är lite liten på mobil (för mycket margin).
+Rate knappen kan placeras bättre.
+
+### Kan du ratea videon?
+App dör om ratingen är null. Samma person kan ratea för många gånger. (woops på min del)
+
+### Kan du logga ut?
+Ja det gick fint.
+
+### Är det någonting du saknar?
+Lite finare homepage. Lite mer information på profilen.
+
 ## Youtube scrape metod (mest för mig själv senare)
 
 Användare ger en youtube länk, ex:
