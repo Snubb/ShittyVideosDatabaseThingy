@@ -164,7 +164,7 @@ router.post('/:id/rate',
         const rating = req.body.rating;
 
         const user_id = await pool.promise()
-            .query('SELECT id FROM users WHERE name = ?', [username])
+            .query('SELECT id FROM olrlut_users WHERE name = ?', [username])
             .then(([rows]) => {
                 if (rows.length != 0) {
                     console.log(rows[0]);
