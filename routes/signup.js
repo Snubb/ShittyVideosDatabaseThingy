@@ -21,7 +21,7 @@ router.post('/', async (req, res, next) => {
       /*&& req.body.password.includes('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')*/) {
         if (req.body.username.length > 3 && req.body.username.length < 33) {
           await pool.promise()
-          .query("SELECT * FROM users WHERE name = ?", [req.body.username])
+          .query("SELECT * FROM olrlut_users WHERE name = ?", [req.body.username])
           .then(([rows]) => {
             if (rows.length > 0) {
               req.session.error = "Username already taken";
@@ -30,7 +30,7 @@ router.post('/', async (req, res, next) => {
           });
           bcrypt.hash(req.body.password, 10, async function(err, hash) {
             await pool.promise()
-            .query("INSERT INTO users (name, password) VALUES (?, ?)", [req.body.username, hash])
+            .query("INSERT INTO olrlut_users (name, password) VALUES (?, ?)", [req.body.username, hash])
             .then(([rows]) => {
                 req.session.flash = "Created user";
                 res.redirect("/login");

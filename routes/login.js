@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
         return res.redirect("/user");
     }
     await pool.promise()
-        .query('SELECT * FROM users')
+        .query('SELECT * FROM olrlut_users')
         .then(([rows, fields]) => {
             res.render('newLogin.njk', { title: 'Express', error: req.session.error, flash: req.session.flash, token: req.session.loginToken});
             req.session.error = null;
@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
     
     if (username.length > 0 && req.body.password.length > 0) {
         await pool.promise()
-            .query('SELECT * FROM users WHERE name = ?', [username])
+            .query('SELECT * FROM olrlut_users WHERE name = ?', [username])
             .then(([rows, fields]) => {
                 console.log(rows);
                 bcrypt.compare(req.body.password, rows[0].password, function(err,result) {

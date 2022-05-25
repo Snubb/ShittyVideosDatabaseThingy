@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
     return res.redirect("/login");
   }
   await pool.promise()
-  .query('SELECT * FROM videos JOIN users ON users.name = videos.uploader WHERE videos.uploader = ?', [req.session.loginToken])
+  .query('SELECT * FROM olrlut_videos JOIN olrlut_users ON olrlut_users.name = olrlut_videos.uploader WHERE olrlut_videos.uploader = ?', [req.session.loginToken])
   .then(([rows, fields]) => {
     newRows = rows.splice(0, 3);
     res.render("user.njk", {data: newRows, username: req.session.loginToken})
@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:user', async (req, res, next) => {
   username = req.params.user;
   await pool.promise()
-  .query('SELECT * FROM users WHERE name = ?', [username])
+  .query('SELECT * FROM olrlut_users WHERE name = ?', [username])
   .then(([rows]) => {
     console.log(rows)
     console.log(rows.length)
@@ -35,7 +35,7 @@ router.get('/:user', async (req, res, next) => {
     }  
   });
   await pool.promise()
-  .query('SELECT * FROM videos JOIN users ON users.name = videos.uploader WHERE videos.uploader = ?', [username])
+  .query('SELECT * FROM olrlut_videos JOIN olrlut_users ON olrlut_users.name = olrlut_videos.uploader WHERE olrlut_videos.uploader = ?', [username])
   .then(([rows, fields]) => {
     newRows = rows.splice(0, 3);
     res.render("user.njk", {data: newRows, username: username})

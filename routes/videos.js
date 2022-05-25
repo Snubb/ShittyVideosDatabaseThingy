@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
     const json = req.query.json;
 
     await pool.promise()
-        .query('SELECT * FROM videos')
+        .query('SELECT * FROM olrlut_videos')
         .then(([rows, fields]) => {
             if (json == "true") {
                 res.json(rows)
@@ -67,9 +67,9 @@ router.post('/post',
                 thumbnailurl = response.thumbnails.high.url;
                 channel = response.channelTitle;
 
-                const sql = 'INSERT INTO videos (videourl, videoID, author, uploader, thumbnailurl, videoTitle) VALUES (?, ?, ?, ?, ?, ?)';
+                const sql = 'INSERT INTO olrlut_videos (videoID, author, uploader, videoTitle) VALUES (?, ?, ?, ?)';
                 await pool.promise()
-                    .query(sql, [videoURL, videoID, channel, username, thumbnailurl, title])
+                    .query(sql, [videoID, channel, username, title])
                     .then((response) => {
                         console.log(response);
                         if (response[0].affectedRows == 1) {
@@ -98,7 +98,7 @@ router.get('/:id', async (req, res, next) => {
     const json = req.query.json;
     console.log("Vidoe ID: " + videoID);
     const video_id = await pool.promise()
-    .query('SELECT id FROM videos WHERE videoID = ?;', [videoID])
+    .query('SELECT id FROM olrlut_videos WHERE videoID = ?;', [videoID])
     .then(([rows]) => {
         if (rows.length != 0) {
             console.log(rows[0]);
@@ -108,7 +108,7 @@ router.get('/:id', async (req, res, next) => {
         }
     });
     const average_rating = await pool.promise()
-            .query('SELECT AVG(ratings.rating) AS rating_average FROM ratings INNER JOIN videos ON ratings.video_id = videos.id AND videos.id = ?;', [video_id])
+            .query('SELECT AVG(olrlut_ratings.rating) AS rating_average FROM olrlut_ratings INNER JOIN olrlut_videos ON olrlut_ratings.video_id = olrlut_videos.id AND olrlut_videos.id = ?;', [video_id])
             .then(([rows]) => {
                 if (rows.length != 0) {
                     console.log(rows[0]);
@@ -119,7 +119,7 @@ router.get('/:id', async (req, res, next) => {
             });
 
     await pool.promise()
-        .query('SELECT * FROM videos WHERE videoID = ?', [videoID])
+        .query('SELECT * FROM olrlut_videos WHERE videoID = ?', [videoID])
         .then(([rows, fields]) => {
             if (rows.length != 0) {
                 if (json == "true") {
@@ -164,7 +164,7 @@ router.post('/:id/rate',
         const rating = req.body.rating;
 
         const user_id = await pool.promise()
-            .query('SELECT id FROM users WHERE name = ?', [username])
+            .query('SELECT id FROM olrlut_users WHERE name = ?', [username])
             .then(([rows]) => {
                 if (rows.length != 0) {
                     console.log(rows[0]);
@@ -175,7 +175,7 @@ router.post('/:id/rate',
             });
 
         
-        const sql = 'INSERT INTO ratings (video_id, user_id, rating) VALUES (?, ?, ?)';
+        const sql = 'INSERT INTO olrlut_ratings (video_id, user_id, rating) VALUES (?, ?, ?)';
         await pool.promise()
             .query(sql, [video_id, user_id, rating])
             .then((response) => {
