@@ -85,3 +85,13 @@ Fin fin fint.
 Testa lite heroku hosting kanske, annars mer styling.
 ### Vad gjordes?
 Heroku gick inte för den kan inte koppla till github. Ändrade till scss istället för sass, redesignat signup och login forms. Jobbat lite responsivt med videos tabben.
+
+## 2022-05-25
+### Vad gjorde jag förra gången?
+Gjorde lite redesigns av hur forms och responsivitet fungerar.
+### Hur gick det?
+Fin fin fin fint.
+### Idag? 
+Fixa till heroku och koppla till en faktiskt databas istället för localhost.
+### Vad gjordes?
+Heroku är uppsatt och databasen är migrerad. Ett användbarhetstest gjordes även vilket gav en del bra feedback för att förbättra sidan.
