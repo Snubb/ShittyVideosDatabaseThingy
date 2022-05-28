@@ -173,31 +173,44 @@ router.post('/:id/rate',
                     console.log("NO WORK");
                 }
             });
-
         
-        const sql = 'INSERT INTO olrlut_ratings (video_id, user_id, rating) VALUES (?, ?, ?)';
         await pool.promise()
-            .query(sql, [video_id, user_id, rating])
-            .then((response) => {
-                console.log(response);
-                if (response[0].affectedRows == 1) {
-                    res.redirect('/videos');
+            .query('SELECT * FROM olrlut_ratings WHERE user_id = ? AND video_id = ?', [user_id, video_id])
+            .then(async ([rows]) => {
+                if (rows.length == 0) {
+                    const sql = 'INSERT INTO olrlut_ratings (video_id, user_id, rating) VALUES (?, ?, ?)';
+                    await pool.promise()
+                        .query(sql, [video_id, user_id, rating])
+                        .then((response) => {
+                            console.log(response);
+                            if (response[0].affectedRows == 1) {
+                                res.redirect('/videos');
+                            } else {
+                                res.status(400).json({
+                                    videos: {
+                                        error: "Invalid video"
+                                    }
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.status(500).json({
+                                videos: {
+                                    error: "Cannot retrieve videos"
+                                }
+                            });
+                        });
                 } else {
-                    res.status(400).json({
+                    res.status(500).json({
                         videos: {
-                            error: "Invalid video"
+                            error: "You have already rated this video"
                         }
-                    })
+                    });
                 }
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({
-                    videos: {
-                        error: "Cannot retrieve videos"
-                    }
-                });
             });
+            
+        
     });
 
     router.post('/:id/delete',
