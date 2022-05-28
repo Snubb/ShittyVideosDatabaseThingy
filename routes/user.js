@@ -38,7 +38,30 @@ router.get('/:user', async (req, res, next) => {
   .query('SELECT * FROM olrlut_videos JOIN olrlut_users ON olrlut_users.name = olrlut_videos.uploader WHERE olrlut_videos.uploader = ?', [username])
   .then(([rows, fields]) => {
     newRows = rows.splice(0, 3);
-    res.render("user.njk", {data: newRows, username: username})
+    res.render("user.njk", {data: newRows, displayeduser: username})
+  })
+});
+
+router.get('/:user/videos', async (req, res, next) => {
+  username = req.params.user;
+  await pool.promise()
+  .query('SELECT * FROM olrlut_users WHERE name = ?', [username])
+  .then(([rows]) => {
+    console.log(rows)
+    console.log(rows.length)
+    if (rows.length == 0) {
+      res.json({
+        tasks: {
+            error: "ID does not exist"
+        }
+      });
+      return;
+    }  
+  });
+  await pool.promise()
+  .query('SELECT * FROM olrlut_videos WHERE uploader = ?', [username])
+  .then(([rows, fields]) => {
+    res.render("uservideos.njk", {items: rows, username: username})
   })
 });
 module.exports = router;

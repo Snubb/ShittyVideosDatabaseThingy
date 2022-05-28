@@ -200,5 +200,23 @@ router.post('/:id/rate',
             });
     });
 
+    router.post('/:id/delete',
+    async (req, res, next) => {
+        const video_id = req.params.id;
+        const username = req.session.loginToken;
+        
+        const sql = 'DELETE FROM olrlut_videos WHERE id = ?';
+        await pool.promise().query(sql, [video_id])
+        .then((response) => {
+            if (response[0].affectedRows === 1) {
+                req.session.flash = "Task deleted";
+                res.redirect('back');
+            } else {
+                req.session.flash = "Task failed";
+                res.redirect('back');
+            }
+        });
+    });
+
 
 module.exports = router;
