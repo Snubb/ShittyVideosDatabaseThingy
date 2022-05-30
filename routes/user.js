@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
   .query('SELECT * FROM olrlut_videos JOIN olrlut_users ON olrlut_users.name = olrlut_videos.uploader WHERE olrlut_videos.uploader = ?', [req.session.loginToken])
   .then(([rows, fields]) => {
     newRows = rows.splice(0, 3);
-    res.render("user.njk", {data: newRows, username: req.session.loginToken})
+    res.render("user.njk", {title: "Profile",data: newRows, displayeduser: req.session.loginToken, username: req.session.loginToken})
   })
 });
 
@@ -38,7 +38,7 @@ router.get('/:user', async (req, res, next) => {
   .query('SELECT * FROM olrlut_videos JOIN olrlut_users ON olrlut_users.name = olrlut_videos.uploader WHERE olrlut_videos.uploader = ?', [username])
   .then(([rows, fields]) => {
     newRows = rows.splice(0, 3);
-    res.render("user.njk", {data: newRows, displayeduser: username})
+    res.render("user.njk", {title: "User page", data: newRows, displayeduser: username, username: req.session.loginToken})
   })
 });
 

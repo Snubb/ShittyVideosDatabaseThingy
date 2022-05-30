@@ -14,6 +14,7 @@ router.get('/', async (req, res, next) => {
                 res.json(rows)
             } else {
                 const data = {
+                    title: "Shitty videos",
                     message: "Displaying videos",
                     layout: 'layout.njk',
                     items: rows,
