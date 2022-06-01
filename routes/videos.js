@@ -46,23 +46,47 @@ router.get('/post', async (req, res, next) => {
 router.post('/post',
     async (req, res, next) => {
         if (!req.session.loginToken) {
-            return res.status(400).json({    
+            const data = {
+                message: "Post a video",
+                layout: 'layout.njk',
+                title: 'Video posting',
+                username: req.session.loginToken,
                 error: "Must be logged in"
-            })
-        }
+            }
+            return res.render('postVideo.njk', data);
+        };
+        if (req.body.videourl.length < 17) {
+            const data = {
+                message: "Post a video",
+                layout: 'layout.njk',
+                title: 'Video posting',
+                username: req.session.loginToken,
+                error: "Invalid youtube link"
+            }
+            return res.render('postVideo.njk', data);
+        };
         const videoID = youtubeGen(req.body.videourl);
         const videoURL = "youtu.be/" + videoID; // Detta för att få alla länkar att ha samma format
         console.log("POST routes videoID: " + videoID);
         const username = req.session.loginToken;
         let title;
-        let thumbnailurl;
         let channel;
         let key = process.env.YOUTUBE_API_KEY;
         let url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoID}&key=${key}`
         let response;
         betterFetch(url)
             .then(res => res.json())
-            .then(json => response = json.items[0].snippet)
+            .then(json => response = json.items[0].snippet).catch(err => {
+                console.log(err);
+                const data = {
+                    message: "Post a video",
+                    layout: 'layout.njk',
+                    title: 'Video posting',
+                    username: req.session.loginToken,
+                    error: "Invalid youtube link"
+                }
+                return res.render('postVideo.njk', data);
+            })
             .then(async () => {
                 title = response.title;
                 thumbnailurl = response.thumbnails.high.url;
@@ -99,25 +123,25 @@ router.get('/:id', async (req, res, next) => {
     const json = req.query.json;
     console.log("Vidoe ID: " + videoID);
     const video_id = await pool.promise()
-    .query('SELECT id FROM olrlut_videos WHERE videoID = ?;', [videoID])
-    .then(([rows]) => {
-        if (rows.length != 0) {
-            console.log(rows[0]);
-            return rows[0].id;
-        } else {
-            console.log("NO WORK");
-        }
-    });
+        .query('SELECT id FROM olrlut_videos WHERE videoID = ?;', [videoID])
+        .then(([rows]) => {
+            if (rows.length != 0) {
+                console.log(rows[0]);
+                return rows[0].id;
+            } else {
+                console.log("NO WORK");
+            }
+        });
     const average_rating = await pool.promise()
-            .query('SELECT AVG(olrlut_ratings.rating) AS rating_average FROM olrlut_ratings INNER JOIN olrlut_videos ON olrlut_ratings.video_id = olrlut_videos.id AND olrlut_videos.id = ?;', [video_id])
-            .then(([rows]) => {
-                if (rows.length != 0) {
-                    console.log(rows[0]);
-                    return rows[0].rating_average;
-                } else {
-                    console.log("NO WORK");
-                }
-            });
+        .query('SELECT AVG(olrlut_ratings.rating) AS rating_average FROM olrlut_ratings INNER JOIN olrlut_videos ON olrlut_ratings.video_id = olrlut_videos.id AND olrlut_videos.id = ?;', [video_id])
+        .then(([rows]) => {
+            if (rows.length != 0) {
+                console.log(rows[0]);
+                return rows[0].rating_average;
+            } else {
+                console.log("NO WORK");
+            }
+        });
 
     await pool.promise()
         .query('SELECT * FROM olrlut_videos WHERE videoID = ?', [videoID])
@@ -156,7 +180,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/:id/rate',
     async (req, res, next) => {
         if (!req.session.loginToken) {
-            return res.status(400).json({    
+            return res.status(400).json({
                 error: "Must be logged in"
             })
         }
@@ -174,7 +198,7 @@ router.post('/:id/rate',
                     console.log("NO WORK");
                 }
             });
-        
+
         await pool.promise()
             .query('SELECT * FROM olrlut_ratings WHERE user_id = ? AND video_id = ?', [user_id, video_id])
             .then(async ([rows]) => {
@@ -210,26 +234,26 @@ router.post('/:id/rate',
                     });
                 }
             });
-            
-        
+
+
     });
 
-    router.post('/:id/delete',
+router.post('/:id/delete',
     async (req, res, next) => {
         const video_id = req.params.id;
         const username = req.session.loginToken;
-        
+
         const sql = 'DELETE FROM olrlut_videos WHERE id = ?';
         await pool.promise().query(sql, [video_id])
-        .then((response) => {
-            if (response[0].affectedRows === 1) {
-                req.session.flash = "Task deleted";
-                res.redirect('back');
-            } else {
-                req.session.flash = "Task failed";
-                res.redirect('back');
-            }
-        });
+            .then((response) => {
+                if (response[0].affectedRows === 1) {
+                    req.session.flash = "Task deleted";
+                    res.redirect('back');
+                } else {
+                    req.session.flash = "Task failed";
+                    res.redirect('back');
+                }
+            });
     });
 
 
