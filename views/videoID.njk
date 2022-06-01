@@ -2,7 +2,7 @@
 {% block content %}
 
 <main>
-    <div class="d-flex justify-content-center p-left-right-20">
+    <div class="d-flex justify-content-center outer-video-container">
         <div class="video-container">
             {% for item in items %}
                 <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{{ item.videoID }}"></iframe>

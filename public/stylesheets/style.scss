@@ -36,6 +36,22 @@ a {
   width: 100%;
   padding-top: 56.25%;
 }
+.outer-video-container {
+  padding-left: 20%;
+  padding-right: 20%;
+  @media screen and (max-width: $lg) {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+  @media screen and (max-width: $md) {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  @media screen and (max-width: $sm) {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
 .responsive-iframe {
   position: absolute;
   top: 0;
