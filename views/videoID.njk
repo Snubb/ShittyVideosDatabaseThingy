@@ -2,40 +2,48 @@
 {% block content %}
 
 <main>
-    <div class="d-flex justify-content-center outer-video-container">
-        <div class="video-container">
-            {% for item in items %}
-                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{{ item.videoID }}"></iframe>
-            {% endfor %}
-        </div>
+  <div class="d-flex justify-content-center outer-video-container">
+    <div class="video-container">
+      {% for item in items %}
+      <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{{ item.videoID }}"></iframe>
+      {% endfor %}
     </div>
-    <h1>Average rating: {{ average_rating }}</h1>
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ratingModal">
+  </div>
+  <div class="outer-video-container d-flex">
+    <h3 class="">Average rating: {{ average_rating | round(2) }}/10</h1>
+      {% if user_rating %}
+      <h3 class="user_rating">Your rating: {{ user_rating }}</h3>
+      {% else %}
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#ratingModal">
         Rate video
-    </button>
-    <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="ratingModalLabel">Rate video</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form action="/videos/{{ items[0].id }}/rate" method="post">
-                {% if username %}
-                  <input min="0" max="10" class="form-control" type="number" placeholder="Rate 0-10" aria-label="default input example" name="rating">
-                  <button class="btn btn-success" type="submit">Rate</button>
-                {% else %}
-                  <input disabled min="0" max="10" class="form-control" type="number" placeholder="Rate 0-10" aria-label="default input example" name="rating">
-                  <button title="Must be logged in to post video" class="btn btn-success disabled" type="submit">Post</button>
-                  <i class="d-block">You must be logged in to rate a video</i>
-                {% endif %}
-              </form>
-            </div>
-          </div>
+      </button>
+      {% endif %}
+
+  </div>
+  <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ratingModalLabel">Rate video</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/videos/{{ items[0].id }}/rate" method="post">
+            {% if username %}
+            <input min="0" max="10" class="form-control" type="number" placeholder="Rate 0-10"
+              aria-label="default input example" name="rating">
+            <button class="btn btn-success" type="submit">Rate</button>
+            {% else %}
+            <input disabled min="0" max="10" class="form-control" type="number" placeholder="Rate 0-10"
+              aria-label="default input example" name="rating">
+            <button title="Must be logged in to post video" class="btn btn-success disabled" type="submit">Post</button>
+            <i class="d-block">You must be logged in to rate a video</i>
+            {% endif %}
+          </form>
         </div>
       </div>
+    </div>
+  </div>
 </main>
 
 {% endblock %}
