@@ -157,11 +157,11 @@ router.get('/:id', async (req, res, next) => {
             .query('SELECT olrlut_ratings.rating AS user_rating FROM olrlut_ratings INNER JOIN olrlut_videos ON olrlut_ratings.video_id = olrlut_videos.id AND olrlut_videos.id = ? AND user_id = ?;', [video_id, user_id])
             .then((rows, fields) => {
                 console.log("HERES THE ROWS")
-                console.log(rows)
-                if (rows.length != 0) {
+                console.log(rows[0])
+                if (rows[0].length != 0) {
                     return rows[0][0].user_rating;
                 } else {
-                    return 0;
+                    return null;
                 }
             })
     }
@@ -212,7 +212,7 @@ router.post('/:id/rate',
         const video_id = req.params.id;
         const username = req.session.loginToken;
         const rating = req.body.rating;
-        if (rating < 0 || rating > 10) {
+        if (rating < 0 || rating > 10 || !rating) {
             return res.status(400).json({
                 error: "Must input a number between 0 and 10"
             })
